@@ -1,0 +1,61 @@
+body {
+    background-color: whitesmoke;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+
+
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+}
+.navbar-custom {
+    background-color: #D9C1B4;
+    opacity: 0.7;
+}
+a {
+    color:black;
+
+}
+
+.bg1 {
+    background-color: #fff;
+    background-image: url("images/plants.jpg");
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    color: #fff;
+    min-height: 650px;
+    text-align: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+}
+.col1 {
+background-image: url("images/p1.JPG");
+
+}
+.col2 {
+    background-image: url("images/p2.JPG");
+
+}
+
+.col3 {
+    background-image: url("images/p3.JPG");
+
+}
+
+.sep{
+
+}
+
+footer{
+    background-color: #D9C1B4;
+}

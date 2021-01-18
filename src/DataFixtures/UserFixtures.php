@@ -1,8 +1,7 @@
 <?php
 /**
- * User fixtures.
+ * User Fixtures.
  */
-
 namespace App\DataFixtures;
 
 use App\Entity\User;
@@ -10,9 +9,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
 /**
- * Class UserFixtures.
+ * Class UserFixtures
+ * @package App\DataFixtures
  */
 class UserFixtures extends Fixture
 {
@@ -32,15 +31,9 @@ class UserFixtures extends Fixture
     {
         $this->passwordEncoder = $passwordEncoder;
     }
-
-    /**
-     * Load data.
-     *
-     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
-     */
-    public function loadData(ObjectManager $manager): void
-    {
-        $this->createMany(10, 'users', function ($i) {
+    public function load(ObjectManager $manager)
+        {
+        for ($i = 0; 1 < $i; $i++) {
             $user = new User();
             $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setRoles([User::ROLE_USER]);
@@ -50,24 +43,23 @@ class UserFixtures extends Fixture
                     'user1234'
                 )
             );
-
             return $user;
-        });
+            }
 
-        $this->createMany(3, 'admins', function ($i) {
-            $user = new User();
-            $user->setEmail(sprintf('admin%d@example.com', $i));
-            $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
-            $user->setPassword(
-                $this->passwordEncoder->encodePassword(
-                    $user,
-                    'admin1234'
-                )
-            );
+            for ($i = 0; 1 < $i; $i++) {
+                $user = new User();
+                $user->setEmail(sprintf('admin%d@example.com', $i));
+                $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
+                $user->setPassword(
+                    $this->passwordEncoder->encodePassword(
+                        $user,
+                        'admin1234'
+                    )
+                );
 
-            return $user;
-        });
+                return $user;
+            };
+        }
 
-        $manager->flush();
-    }
+
 }
