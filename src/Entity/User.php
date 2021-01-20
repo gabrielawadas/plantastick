@@ -1,15 +1,29 @@
 <?php
 /**
- * User Entity.
+ * User entity.
  */
+
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(
+ *     name="users",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(
+ *              name="email_idx",
+ *              columns={"email"},
+ *          )
+ *     }
+ * )
+ *
+ * @UniqueEntity(fields={"email"})
  */
 class User implements UserInterface
 {
@@ -26,36 +40,63 @@ class User implements UserInterface
      * @var string
      */
     const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
+     * Primary key.
+     *
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * E-mail.
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=180,
+     *     unique=true,
+     * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
     /**
+     * Roles.
+     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * The hashed password.
+     *
+     * @var string
+     *
      * @ORM\Column(type="string")
+
+     * @Assert\NotBlank
+     * @Assert\Type(type="string")
+     * @SecurityAssert\UserPassword
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
-
-    /**
-     * @return int|null
+     * Getter for the Id.
+     *
+     * @return int|null Result
      */
     public function getId(): ?int
     {
@@ -63,7 +104,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return string|null
+     * Getter for the E-mail.
+     *
+     * @return string|null E-mail
      */
     public function getEmail(): ?string
     {
@@ -71,20 +114,21 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $email
-     * @return $this
+     * Setter for the E-mail.
+     *
+     * @param string $email E-mail
      */
-    public function setEmail(string $email): self
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
     /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string User name
      */
     public function getUsername(): string
     {
@@ -92,31 +136,37 @@ class User implements UserInterface
     }
 
     /**
+     * Getter for the Roles.
+     *
      * @see UserInterface
-     * @return array Roles.
+     *
+     * @return array Roles
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = static::ROLE_USER;
 
         return array_unique($roles);
     }
 
     /**
-     * @param array $roles
-     * @return $this
+     * Setter for the Roles.
+     *
+     * @param array $roles Roles
      */
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles): void
     {
         $this->roles = $roles;
-
-        return $this;
     }
 
     /**
+     * Getter for the Password.
+     *
      * @see UserInterface
+     *
+     * @return string|null Password
      */
     public function getPassword(): string
     {
@@ -124,14 +174,13 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $password
-     * @return $this
+     * Setter for the Password.
+     *
+     * @param string $password Password
      */
-    public function setPassword(string $password): self
+    public function setPassword(string $password): void
     {
         $this->password = $password;
-
-        return $this;
     }
 
     /**
@@ -150,23 +199,15 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
     /**
-     * @return string|null
+     * Generates the magic method.
+     *
      */
-    public function getName(): ?string
+    public function __toString()
     {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
+        // to show the name of the Category in the select
+        return $this->roles;
+        // to show the id of the Category in the select
+        // return $this->id;
     }
 }

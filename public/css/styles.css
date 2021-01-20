@@ -1,26 +1,38 @@
 body {
     background-color: whitesmoke;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     height: 100%;
+}
+html {
+    height: 100%;
+}
 
 
+.btn {
+    border-radius: 0;
 }
 .navbar {
     position: fixed;
     width: 100%;
 }
 .navbar-custom {
-    background-color: #D9C1B4;
-    opacity: 0.7;
+    background-color: white;
+    opacity: 0.5;
 }
 a {
     color:black;
+    text-decoration: none;
 
 }
 
 .bg1 {
     background-color: #fff;
     background-image: url("images/plants.jpg");
+    min-height: 100%;
+    min-width: 1024px;
+
+    /* Set up proportionate scaling */
+    width: 100%;
     height: 100%;
 
     /* Center and scale the image nicely */
@@ -28,6 +40,7 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 .content {
     color: #fff;
@@ -38,8 +51,12 @@ a {
     background-repeat: no-repeat;
 
 }
+.shop {
+    height: 300px;
+}
 .col1 {
 background-image: url("images/p1.JPG");
+
 
 }
 .col2 {
@@ -52,10 +69,8 @@ background-image: url("images/p1.JPG");
 
 }
 
-.sep{
-
-}
 
 footer{
     background-color: #D9C1B4;
 }
+
