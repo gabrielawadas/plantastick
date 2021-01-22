@@ -1,56 +1,38 @@
 <?php
 /**
- * User Fixtures.
+ * User fixtures.
  */
+
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 /**
- * Class UserFixtures
- * @package App\DataFixtures
+ * Class UserFixtures.
  */
+
 class UserFixtures extends Fixture
 {
-    /**
-     * Password encoder.
-     *
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private $encoder;
 
-    /**
-     * UserFixtures constructor.
-     *
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder Password encoder
-     */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordEncoderInterface $encoder)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->encoder = $encoder;
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
+    // ...
     public function load(ObjectManager $manager)
     {
-       // $product = new Product();
-        // $manager->persist($product);
-        for($i = 0; $i < 2; $i++) {
-            $user = new User();
-            $user->setEmail(sprintf('admin%d@example.com', $i));
-            $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
-            $user->setPassword(
-                $this->passwordEncoder->encodePassword(
-                    $user,
-                    'admin1234'
-                )
-            );
-        };
+        $user = new User();
+        $user->setEmail('user@example.com');
+        $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
+        $password = $this->encoder->encodePassword($user, 'user_1234');
+        $user->setPassword($password);
+
+        $manager->persist($user);
         $manager->flush();
     }
 }

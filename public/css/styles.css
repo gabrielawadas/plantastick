@@ -40,6 +40,13 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.logo {
+    background-image: url("images/logo.png");
+   height: 463px;
+    width: 388px;
+    background-repeat: no-repeat;
+    margin: auto;
+}
 
 
 .content {

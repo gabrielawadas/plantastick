@@ -8,7 +8,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -67,7 +66,6 @@ class User implements UserInterface
      *     length=180,
      *     unique=true,
      * )
-     *
      * @Assert\NotBlank
      * @Assert\Email
      */
@@ -86,12 +84,17 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string")
-
      * @Assert\NotBlank
-     * @Assert\Type(type="string")
-     * @SecurityAssert\UserPassword
+     * @Assert\Length(
+     *     min="6",
+     *     max="255",
+     * )
      */
     private $password;
+    /**
+     * @var
+     */
+    private $plainPassword;
 
     /**
      * Getter for the Id.
@@ -199,14 +202,23 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
     /**
-     * Generates the magic method.
+     * Generates the magic method
      *
      */
-    public function __toString()
-    {
+    public function __toString(){
         // to show the name of the Category in the select
-        return $this->roles;
+        return $this->email;
         // to show the id of the Category in the select
         // return $this->id;
     }
