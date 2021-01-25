@@ -2,3 +2,14 @@ easy_admin_bundle:
   resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
   prefix: /admin
   type: annotation
+  entities:
+    Product
+      class: App\Entity\Product
+      new:
+        fields:
+          - 'id'
+          - 'name'
+          - 'price'
+          - 'colour'
+          - 'height'
+          - {property: 'imagesource', type: 'file'}

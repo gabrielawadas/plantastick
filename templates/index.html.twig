@@ -29,14 +29,19 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sklep </a>
+                    <a class="nav-link" href="#shop">Sklep </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">O nas</a>
+                    <a class="nav-link" href="#about">O nas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Kontakt</a>
+                    <a class="nav-link" href="#contact">Kontakt</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item" >
+                        <a class="nav-link" href="{{ path('easyadmin') }}"> Admin panel</a>
+                    </li>
+                {% endif %}
             </ul>
             <span class="navbar-text">
               You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -62,6 +67,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Kontakt</a>
             </li>
+
         </ul>
         <span class="navbar-text">
                         <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
@@ -81,7 +87,9 @@
 <div class="sep"> <br></div>
 
 
-<table class="table">
+<a name="shop">
+    <table class="table">
+
     <thead>
     <tr>
         <th>Id</th>
@@ -89,7 +97,7 @@
         <th>Price</th>
         <th>Colour</th>
         <th>Height</th>
-        <th>actions</th>
+        <th>Image</th>
     </tr>
     </thead>
     <tbody>
@@ -100,10 +108,8 @@
             <td>{{ product.price }}</td>
             <td>{{ product.colour }}</td>
             <td>{{ product.height }}</td>
-            <td>
-                <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-            </td>
+            <td><img src="{{asset('public/css/images/'~ product.getImagesource())}}"></td>
+
         </tr>
     {% else %}
         <tr>
@@ -112,8 +118,20 @@
     {% endfor %}
     </tbody>
 </table>
-
-
+</a>
+<br>
+{#<div class="container about m-0">#}
+{#    <div class="row m-0 align-content-center">#}
+{#        <div class="col-6">#}
+{#            <h2>O nas</h2>#}
+{#            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sem nulla pharetra diam sit. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Habitant morbi tristique senectus et netus. Elit duis tristique sollicitudin nibh. Ut pharetra sit amet aliquam id diam maecenas. Quis hendrerit dolor magna eget. Tortor condimentum lacinia quis vel. Felis eget nunc lobortis mattis aliquam faucibus purus in. Ac tincidunt vitae semper quis lectus nulla at. Nulla aliquet enim tortor at auctor urna nunc id cursus. Ac tortor dignissim convallis aenean et tortor at risus. Odio ut sem nulla pharetra diam sit amet nisl. Velit aliquet sagittis id consectetur purus ut faucibus pulvinar. Nisi lacus sed viverra tellus in hac habitasse platea dictumst. Diam vulputate ut pharetra sit amet aliquam id diam. Cursus in hac habitasse platea dictumst quisque sagittis purus.</p>#}
+{#        </div>#}
+{#        <div class="col about-picture">#}
+{#            <p>dupa</p>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+<br>
 <footer>
     <div class="sep"> <br></div>
     <div class="container">

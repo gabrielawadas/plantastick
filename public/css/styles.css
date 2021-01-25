@@ -1,5 +1,5 @@
 body {
-    background-color: whitesmoke;
+    background-color: #F0ECE6;
     font-family: 'Roboto', sans-serif;
     height: 100%;
 }
@@ -40,13 +40,13 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.logo {
-    background-image: url("images/logo.png");
-   height: 463px;
-    width: 388px;
-    background-repeat: no-repeat;
-    margin: auto;
-}
+/*.logo {*/
+/*    background-image: url("images/logo.png");*/
+/*   height: 463px;*/
+/*    width: 388px;*/
+/*    background-repeat: no-repeat;*/
+/*    margin: auto;*/
+/*}*/
 
 
 .content {
@@ -61,23 +61,14 @@ a {
 .shop {
     height: 300px;
 }
-.col1 {
-background-image: url("images/p1.JPG");
 
 
+.about{
+    /*background-color: #FDEED3;*/
 }
-.col2 {
-    background-image: url("images/p2.JPG");
-
-}
-
-.col3 {
-    background-image: url("images/p3.JPG");
-
-}
-
 
 footer{
-    background-color: #D9C1B4;
+    background-color: darkgrey;
+    opacity: 0.7;
 }
 

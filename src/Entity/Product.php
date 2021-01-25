@@ -40,6 +40,11 @@ class Product
     private $height;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagesource;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -119,6 +124,25 @@ class Product
     public function setHeight(string $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImagesource(): ?string
+    {
+        return $this->imagesource;
+    }
+
+    /**
+     * @param string|null $imagesource
+     * @return $this
+     */
+    public function setImagesource(?string $imagesource): self
+    {
+        $this->imagesource = $imagesource;
 
         return $this;
     }
