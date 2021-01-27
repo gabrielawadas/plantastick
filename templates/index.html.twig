@@ -9,9 +9,9 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
 
     {% endblock %}
 
@@ -44,9 +44,12 @@
                 {% endif %}
             </ul>
             <span class="navbar-text">
-              You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+             Cześć {{ app.user.username }}! </span>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
 
-    </span>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+
+
         </div>
     </nav>
 
@@ -86,52 +89,139 @@
 
 <div class="sep"> <br></div>
 
-
+<br>
 <a name="shop">
-    <table class="table">
 
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Colour</th>
-        <th>Height</th>
-        <th>Image</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for product in products %}
-        <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.colour }}</td>
-            <td>{{ product.height }}</td>
-            <td><img src="{{asset('public/css/images/'~ product.getImagesource())}}"></td>
+        <div class="my-5 text-center container">
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <h1>Nasze produkty</h1>
+                    <p class="lead">Wszystkie dostępne w trzech wersjach kolorystycznych</p>
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <a href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <div class="carousel-nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-10">
+                    <!--Start carousel-->
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
-        </tr>
-    {% else %}
-        <tr>
-            <td colspan="6">no records found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+
+                                <div class="row">
+
+                                    {% for product in products|slice(0,3)%}
+                                    <div style="background-image:url('{{ asset('/css/images/'~ product.GetImageSource) }}');"
+                                         class="col-12 col-md d-flex align-items-center justify-content-center">
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    {% for product in products|slice(3,6) %}
+                                        <div style="background-image:url('{{ asset('/css/images/'~ product.GetImageSource) }}');"
+                                             class="col-12 col-md d-flex align-items-center justify-content-center">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End carousel-->
+                </div>
+                <div class="col-1 d-flex align-items-center justify-content-center"><a  href="#carouselExampleIndicators" data-slide="next">
+                        <div class="carousel-nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
 </a>
-<br>
-{#<div class="container about m-0">#}
-{#    <div class="row m-0 align-content-center">#}
-{#        <div class="col-6">#}
-{#            <h2>O nas</h2>#}
-{#            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sem nulla pharetra diam sit. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Habitant morbi tristique senectus et netus. Elit duis tristique sollicitudin nibh. Ut pharetra sit amet aliquam id diam maecenas. Quis hendrerit dolor magna eget. Tortor condimentum lacinia quis vel. Felis eget nunc lobortis mattis aliquam faucibus purus in. Ac tincidunt vitae semper quis lectus nulla at. Nulla aliquet enim tortor at auctor urna nunc id cursus. Ac tortor dignissim convallis aenean et tortor at risus. Odio ut sem nulla pharetra diam sit amet nisl. Velit aliquet sagittis id consectetur purus ut faucibus pulvinar. Nisi lacus sed viverra tellus in hac habitasse platea dictumst. Diam vulputate ut pharetra sit amet aliquam id diam. Cursus in hac habitasse platea dictumst quisque sagittis purus.</p>#}
+
+
+{#<a name="shop">#}
+{#    {% for product in products %}#}
+{#        <div class="my-5 text-center container">#}
+{#            <div class="row mb-2">#}
+{#                <div class="col text-center">#}
+{#                    <h1>Nasze produkty</h1>#}
+{#                    <p class="lead">Wszystkie dostępne w trzech wersjach kolorystycznych</p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row d-flex align-items-center">#}
+{#                <div class="col-1 d-flex align-items-center justify-content-center">#}
+{#                    <a href="#carouselExampleIndicators" role="button" data-slide="prev">#}
+{#                        <div class="carousel-nav-icon">#}
+{#                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">#}
+{#                                <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"/>#}
+{#                            </svg>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="col-10">#}
+{#                    <!--Start carousel-->#}
+{#                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">#}
+
+{#                        <div class="carousel-inner">#}
+{#                            <div class="carousel-item active">#}
+
+{#                                <div class="row">#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');"#}
+{#                                         class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');" class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');"#}
+{#                                         class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                </div>#}
+
+{#                            </div>#}
+{#                            <div class="carousel-item">#}
+{#                                <div class="row">#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');" class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');" class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                    <div style="background-image:url('{{ asset('/css/images/'~product.GetImageSource) }}');" class="col-12 col-md d-flex align-items-center justify-content-center" class="col-12 col-md d-flex align-items-center justify-content-center">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <!--End carousel-->#}
+{#                </div>#}
+{#                <div class="col-1 d-flex align-items-center justify-content-center"><a  href="#carouselExampleIndicators" data-slide="next">#}
+{#                        <div class="carousel-nav-icon">#}
+{#                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">#}
+{#                                <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>#}
+{#                            </svg>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
 {#        </div>#}
-{#        <div class="col about-picture">#}
-{#            <p>dupa</p>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-<br>
+{#    {% endfor %}#}
+{#</a>#}
+
+
+
+
 <footer>
     <div class="sep"> <br></div>
     <div class="container">
@@ -152,10 +242,11 @@
                 <p>Regulamin</p>
             </div>
         </div>
-
+    </div>
 </footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

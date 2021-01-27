@@ -5,6 +5,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,24 +27,34 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $price;
+    private $imageSource;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\ManyToMany(targetEntity=Colour::class)
      */
     private $colour;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\ManyToMany(targetEntity=Height::class)
      */
     private $height;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity=Price::class)
      */
-    private $imagesource;
+    private $price;
+
+    /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        $this->colour = new ArrayCollection();
+        $this->height = new ArrayCollection();
+        $this->price = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -74,76 +86,118 @@ class Product
     /**
      * @return string|null
      */
-    public function getPrice(): ?string
+    public function getImageSource(): ?string
     {
-        return $this->price;
+        return $this->imageSource;
     }
 
     /**
-     * @param string $price
+     * @param string|null $imageSource
      * @return $this
      */
-    public function setPrice(string $price): self
+    public function setImageSource(?string $imageSource): self
     {
-        $this->price = $price;
+        $this->imageSource = $imageSource;
 
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return Collection|Colour[]
      */
-    public function getColour(): ?string
+    public function getColour(): Collection
     {
         return $this->colour;
     }
 
     /**
-     * @param string $colour
+     * @param Colour $colour
      * @return $this
      */
-    public function setColour(string $colour): self
+    public function addColour(Colour $colour): self
     {
-        $this->colour = $colour;
+        if (!$this->colour->contains($colour)) {
+            $this->colour[] = $colour;
+        }
 
         return $this;
     }
 
     /**
-     * @return string|null
+     * @param Colour $colour
+     * @return $this
      */
-    public function getHeight(): ?string
+    public function removeColour(Colour $colour): self
+    {
+        $this->colour->removeElement($colour);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Height[]
+     */
+    public function getHeight(): Collection
     {
         return $this->height;
     }
 
     /**
-     * @param string $height
+     * @param Height $height
      * @return $this
      */
-    public function setHeight(string $height): self
+    public function addHeight(Height $height): self
     {
-        $this->height = $height;
+        if (!$this->height->contains($height)) {
+            $this->height[] = $height;
+        }
 
         return $this;
     }
 
     /**
-     * @return string|null
-     */
-    public function getImagesource(): ?string
-    {
-        return $this->imagesource;
-    }
-
-    /**
-     * @param string|null $imagesource
+     * @param Height $height
      * @return $this
      */
-    public function setImagesource(?string $imagesource): self
+    public function removeHeight(Height $height): self
     {
-        $this->imagesource = $imagesource;
+        $this->height->removeElement($height);
 
         return $this;
     }
+
+    /**
+     * @return Collection|Price[]
+     */
+    public function getPrice(): Collection
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param Price $price
+     * @return $this
+     */
+    public function addPrice(Price $price): self
+    {
+        if (!$this->price->contains($price)) {
+            $this->price[] = $price;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Price $price
+     * @return $this
+     */
+    public function removePrice(Price $price): self
+    {
+        $this->price->removeElement($price);
+
+        return $this;
+    }
+
+
+
 }

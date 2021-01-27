@@ -32,4 +32,20 @@ class HelloWorldController extends AbstractController
             'products' => $productRepository->findAll(),
         ]);
     }
+
+    /**
+     * Panel action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/panel",
+     *     methods={"GET"},
+     *     name="panel",
+     * )
+     */
+    public function panel(): Response
+    {
+        return $this->render('panel.html.twig');
+    }
 }

@@ -24,7 +24,6 @@
                 <td>{{ product.price }}</td>
                 <td>{{ product.colour }}</td>
                 <td>{{ product.height }}</td>
-                <td> <img src="{{ asset("public/css#{product.getImagesource()}") }}"></td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
