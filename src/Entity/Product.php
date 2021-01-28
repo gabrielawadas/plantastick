@@ -22,27 +22,29 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $imageSource;
 
+
+
     /**
-     * @ORM\ManyToMany(targetEntity=Colour::class)
+     * @ORM\ManyToMany(targetEntity=Colour::class, inversedBy="products")
      */
     private $colour;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Height::class)
+     * @ORM\ManyToMany(targetEntity=Height::class, inversedBy="products")
      */
     private $height;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Price::class)
+     * @ORM\ManyToMany(targetEntity=Price::class, inversedBy="products")
      */
     private $price;
 
@@ -51,10 +53,12 @@ class Product
      */
     public function __construct()
     {
+        $this->price = new ArrayCollection();
         $this->colour = new ArrayCollection();
         $this->height = new ArrayCollection();
-        $this->price = new ArrayCollection();
     }
+
+
 
     /**
      * @return int|null
@@ -92,15 +96,20 @@ class Product
     }
 
     /**
-     * @param string|null $imageSource
+     * @param string $imageSource
      * @return $this
      */
-    public function setImageSource(?string $imageSource): self
+    public function setImageSource(string $imageSource): self
     {
         $this->imageSource = $imageSource;
 
         return $this;
     }
+
+
+
+
+
 
     /**
      * @return Collection|Colour[]
@@ -166,6 +175,18 @@ class Product
         return $this;
     }
 
+
+    /**
+     * Generates the magic method.
+     */
+    public function __toString()
+    {
+        // to show the name of the Category in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+
     /**
      * @return Collection|Price[]
      */
@@ -174,10 +195,6 @@ class Product
         return $this->price;
     }
 
-    /**
-     * @param Price $price
-     * @return $this
-     */
     public function addPrice(Price $price): self
     {
         if (!$this->price->contains($price)) {
@@ -187,17 +204,10 @@ class Product
         return $this;
     }
 
-    /**
-     * @param Price $price
-     * @return $this
-     */
     public function removePrice(Price $price): self
     {
         $this->price->removeElement($price);
 
         return $this;
     }
-
-
-
 }

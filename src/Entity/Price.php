@@ -5,6 +5,8 @@
 namespace App\Entity;
 
 use App\Repository\PriceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,36 +27,64 @@ class Price
     private $number;
 
     /**
-     * @return int|null
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="price")
      */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNumber(): ?string
     {
         return $this->number;
     }
 
-    /**
-     * @param string $number
-     * @return $this
-     */
     public function setNumber(string $number): self
     {
         $this->number = $number;
 
         return $this;
     }
+
     /**
-     * Generates the magic method
-     *
+     * @return Collection|Product[]
      */
-    public function __toString(){
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addPrice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removePrice($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Generates the magic method.
+     */
+    public function __toString()
+    {
         // to show the name of the Category in the select
         return $this->number;
         // to show the id of the Category in the select

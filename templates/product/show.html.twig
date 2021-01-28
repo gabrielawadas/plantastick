@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Szczegóły produktu{% endblock %}
+
 {% block body %}
     {% if app.user %}
 
@@ -11,13 +13,13 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sklep </a>
+                        <a class="nav-link" href="#shop">Sklep </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">O nas</a>
+                        <a class="nav-link" href="#about">O nas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kontakt</a>
+                        <a class="nav-link" href="#contact">Kontakt</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item" >
@@ -26,9 +28,12 @@
                     {% endif %}
                 </ul>
                 <span class="navbar-text">
-              You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+             Cześć {{ app.user.username }}! </span>
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
 
-    </span>
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+
+
             </div>
         </nav>
 
@@ -61,61 +66,31 @@
 
 
     {% endif %}
+{#    <h1>Product</h1>#}
 
-<br><br>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p>picture</p>
-        </div>
-        <div class="col">
-
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
+    <table class="table">
+        <tbody>
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ product.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Name</th>#}
+{#                <td>{{ product.name }}</td>#}
+{#            </tr>#}
+            {% for price in product.price %}
             <tr>
-                <th>Price</th>
                 <td>{{ product.price }}</td>
             </tr>
-            <tr>
-                <th>Colour</th>
-                <td>{{ product.colour }}</td>
-            </tr>
-            <tr>
-                <th>Height</th>
-                <td>{{ product.height }}</td>
-            </tr>
+            {% endfor %}
+{#            <tr>#}
+{#                <th>ImageSource</th>#}
+{#                <td><img src="{{ asset('/css/images/'~product.GetImageSource) }}"></td>#}
+{#            </tr>#}
+        </tbody>
+    </table>
 
-        </div>
-
-
-    </div>
-        <a href="{{ path('product_index') }}">back to list</a>
+    <a href="{{ path('product_index') }}">Sklep</a>
 
 
-
-</div>
-
-    <footer>
-        <div class="sep"> <br></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm  col-3 m-3 ">
-                    <h3>INFO</h3>
-                    <p>bla</p>
-                    <p>bla</p>
-                    <p>bla</p>
-                </div>
-                <div class="col-sm  col-3 m-3">
-                    <h3>KONTAKT</h3>
-                    <p>Skąd</p>
-                    <p>bla</p>
-                </div>
-                <div class="col-sm  col-3 m-3">
-                    <h2>COŚ TAM </h2>
-                    <p>Regulamin</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 {% endblock %}

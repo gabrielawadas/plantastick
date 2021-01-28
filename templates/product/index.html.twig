@@ -10,9 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Price</th>
-                <th>Colour</th>
-                <th>Height</th>
+                <th>ImageSource</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,9 +19,7 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.colour }}</td>
-                <td>{{ product.height }}</td>
+                <td>{{ product.imageSource }}</td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
@@ -31,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

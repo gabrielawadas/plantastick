@@ -24,7 +24,20 @@ class Colour
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="colour")
+     */
+    private $products;
+
+    /**
+     * Colour constructor.
+     */
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -37,30 +50,66 @@ class Colour
     /**
      * @return string|null
      */
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
-     * @param string $type
+     * @param string $name
      * @return $this
      */
-    public function setType(string $type): self
+    public function setName(string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
+
     /**
-     * Generates the magic method
-     *
+     * @return Collection|Product[]
      */
-    public function __toString(){
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addColour($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeColour($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Generates the magic method.
+     */
+    public function __toString()
+    {
         // to show the name of the Category in the select
-        return $this->type;
+        return $this->name;
         // to show the id of the Category in the select
         // return $this->id;
     }
-
 }
