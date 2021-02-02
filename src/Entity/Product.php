@@ -49,6 +49,11 @@ class Product
     private $price;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $about;
+
+    /**
      * Product constructor.
      */
     public function __construct()
@@ -105,10 +110,6 @@ class Product
 
         return $this;
     }
-
-
-
-
 
 
     /**
@@ -207,6 +208,25 @@ class Product
     public function removePrice(Price $price): self
     {
         $this->price->removeElement($price);
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    /**
+     * @param string|null $about
+     * @return $this
+     */
+    public function setAbout(?string $about): self
+    {
+        $this->about = $about;
 
         return $this;
     }

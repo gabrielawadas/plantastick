@@ -1,92 +1,12 @@
-body {
-    background-color: #F0ECE6;
-    font-family: 'Roboto', sans-serif;
-    height: 100%;
-}
-html {
-    height: 100%;
-}
-
-
-.btn {
-    border-radius: 0;
-}
-.navbar {
-    position: fixed;
-    width: 100%;
-}
-.navbar-custom {
-    background-color: white;
-    opacity: 0.5;
-}
-a {
-    color:black;
-    text-decoration: none;
-
-}
-
-.bg1 {
-    background-color: #fff;
-    background-image: url("images/plants.jpg");
-    min-height: 100%;
-    min-width: 1024px;
-
-    /* Set up proportionate scaling */
-    width: 100%;
-    height: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-/*.logo {*/
-/*    background-image: url("images/logo.png");*/
-/*   height: 463px;*/
-/*    width: 388px;*/
-/*    background-repeat: no-repeat;*/
-/*    margin: auto;*/
-/*}*/
-
-
-.content {
-    color: #fff;
-    min-height: 650px;
-    text-align: center;
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-
-}
-.shop {
-    height: 300px;
-}
-
-
-.about{
-
-}
-
-footer{
-    background-color: darkgrey;
-    opacity: 0.7;
-}
-.carousel-nav-icon {
-    height: 48px;
-    width: 48px;
-}
-
-.carousel-item .col, .carousel-item .col-sm, .carousel-item .col-md {
-    margin: 8px;
-    height: 300px;
-    background-size: cover;
-    background-position: center center;
-}
-
-/*product style*/
 /* 12columns.css | Created by Katherine Kato | Released under the MIT license */
 /* GitHub: https://kathykato.github.io/12columns/ */
-
+@import url("https://fonts.googleapis.com/css?family=Pontano+Sans");
+.container {
+    margin: auto;
+    padding: 0 1rem;
+    max-width: 71.25rem;
+    width: 100%;
+}
 
 .grid {
     display: flex;
@@ -622,6 +542,62 @@ footer{
     box-sizing: border-box;
 }
 
+body {
+    font-family: "Pontano Sans", sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    color: #888;
+    background: #fff;
+    text-rendering: optimizeLegibility;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul li {
+    margin: 0 1.75rem 0 0;
+}
+
+a {
+    color: #888;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+a:hover {
+    color: #333;
+}
+a.active {
+    color: #333;
+}
+
+h1, h2, h3, h4 {
+    color: #333;
+    font-weight: normal;
+    margin: 1.75rem 0 1rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2.125rem;
+    margin: 0;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
 section {
     display: block;
 }
@@ -633,6 +609,49 @@ img {
     object-fit: cover;
 }
 
+nav {
+    display: block;
+}
+nav li {
+    font-size: 1.125rem;
+    margin: 0;
+}
+
+.flex-nav ul {
+    position: absolute;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: none;
+    width: 100%;
+    left: 0;
+    padding: 1rem;
+    background: #fff;
+    text-align: center;
+}
+.flex-nav ul.active {
+    display: flex;
+}
+.flex-nav ul li {
+    margin: 0.5rem 0;
+}
+
+.toggle-nav {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin: 1rem 0;
+}
+.toggle-nav i {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 0 0 0 0.5rem;
+}
 
 #highlight {
     color: #333;
@@ -728,7 +747,10 @@ img {
     padding: 0.5rem 1rem;
 }
 
-
+footer {
+    padding: 1rem 0;
+    text-align: center;
+}
 
 .product-image {
     display: none;
@@ -775,6 +797,31 @@ img {
         opacity: 0.7;
     }
 
+    nav ul {
+        justify-content: flex-end;
+    }
+
+    .toggle-nav {
+        display: none;
+    }
+
+    .flex-nav {
+        display: block;
+    }
+    .flex-nav ul {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        justify-content: flex-end;
+    }
+    .flex-nav ul li {
+        font-size: 1.125rem;
+        margin: 0 1.5rem 0 0;
+    }
+    .flex-nav ul li:nth-child(4) {
+        margin: 0;
+    }
+}
 @-webkit-keyframes fadeImg {
     from {
         opacity: 0;
@@ -790,4 +837,4 @@ img {
     to {
         opacity: 1;
     }
-}}
+}

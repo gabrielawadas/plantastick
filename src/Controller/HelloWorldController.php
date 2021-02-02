@@ -39,13 +39,13 @@ class HelloWorldController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/panel",
+     *     "/product",
      *     methods={"GET"},
      *     name="panel",
      * )
      */
-    public function panel(): Response
+    public function product(): Response
     {
-        return $this->render('panel.html.twig');
+        return $this->render('product/index.html.twig');
     }
 }
