@@ -53,7 +53,7 @@ class PriceController extends AbstractController
      */
     public function show(Price $price): Response
     {
-        return $this->render('price/show.html.twig', [
+        return $this->render('price/detail.html.twig', [
             'price' => $price,
         ]);
     }

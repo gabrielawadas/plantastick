@@ -7,7 +7,7 @@
 {% endblock %}
 {% if app.user %}
 
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-custom m-0">
         <a class="navbar-brand" href="#">PLANTASTICK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,32 +15,38 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#shop">Sklep </a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Sklep</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">O nas</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Kontakt</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item" >
-                        <a class="nav-link" href="{{ path('easyadmin') }}"> Admin panel</a>
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('easyadmin') }}">Admin panel</a></button>
+
                     </li>
                 {% endif %}
             </ul>
             <span class="navbar-text">
              Cześć {{ app.user.username }}! </span>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+
             <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
 
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
 
 
         </div>
     </nav>
 
 {% else %}
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-custom ">
         <a class="navbar-brand" href="#">PLANTASTICK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -59,8 +65,9 @@
 
             </ul>
             <span class="navbar-text">
-                        <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
-                                <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
 
         </span>
         </div>
@@ -75,7 +82,7 @@
                 <nav>
                     <ol class="breadcrumb-list">
                         <li class="breadcrumb-item"><a href="{{ asset('/') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Sklep</a></li>
+                        <li class="breadcrumb-item"><a href="{{ asset('product') }}">Sklep</a></li>
                         <li class="breadcrumb-item active">{{ asset(product.GetName) }}</li>
                     </ol>
                 </nav>
@@ -91,14 +98,57 @@
                 </div>
             </div>
             <div class="column-xs-12 column-md-5">
-                {{ include('product/_form.html.twig') }}
-                <button class="add-to-cart">Dodaj do koszyka</button>
+                <div class="col-md-8">
+                    <h1 class="mt-4 mt-md-0">{{ product.name }}</h1>
+
+                    <hr>
+                    <b>Description: </b>{{ product.about }}
+                    {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light '}}) }}
+                    <div class="form-group">
+                        {{ form_row(product.price) }}
+                        {{ form_label(form.quantity) }}
+                        {{ form_widget(form.quantity, {
+                            'attr': {
+                                'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+                            }
+                        }) }}
+                        <div class="invalid-feedback">
+                            {{ form_errors(form.quantity) }}
+                        </div>
+                    </div>
+                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-outline-secondary w-auto'}}) }}
+                    {{ form_end(form) }}
+                </div>
+
             </div>
         </div>
 
     </div>
 
-    <a href="{{ path('product_index') }}">Powrót do sklepu</a>
+    <button class=" btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}">Powrót do sklepu</a></button>
+<br><br>
+    <footer >
+        <div class="sep"> <br></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm  col-3 m-3 ">
+                    <h3>INFO</h3>
+                    <p>bla</p>
+                    <p>bla</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h3>KONTAKT</h3>
+                    <p>Skąd</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h2>COŚ TAM </h2>
+                    <p>Regulamin</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </main>
 
 <script>

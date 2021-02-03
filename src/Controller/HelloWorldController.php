@@ -33,19 +33,19 @@ class HelloWorldController extends AbstractController
         ]);
     }
 
-    /**
-     * Panel action.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/product",
-     *     methods={"GET"},
-     *     name="panel",
-     * )
-     */
-    public function product(): Response
-    {
-        return $this->render('product/index.html.twig');
-    }
+//    /**
+//     * Panel action.
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *     "/product",
+//     *     methods={"GET"},
+//     *     name="panel",
+//     * )
+//     */
+//    public function product(): Response
+//    {
+//        return $this->render('product/index.html.twig');
+//    }
 }

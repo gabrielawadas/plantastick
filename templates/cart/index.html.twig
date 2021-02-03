@@ -1,0 +1,180 @@
+
+
+
+   {% block stylesheets %}
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+       <link rel="preconnect" href="https://fonts.gstatic.com">
+       <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+   {% endblock %}
+
+
+{% block body %}
+
+    {% if app.user %}
+
+        <nav class="navbar navbar-expand-lg navbar-custom m-0">
+            <a class="navbar-brand" href="#">PLANTASTICK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Sklep</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item" >
+                            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('easyadmin') }}">Admin panel</a></button>
+
+                        </li>
+                    {% endif %}
+                </ul>
+                <span class="navbar-text">
+             Cześć {{ app.user.username }}! </span>
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
+
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+
+
+            </div>
+        </nav>
+
+    {% else %}
+        <nav class="navbar navbar-expand-lg navbar-custom ">
+            <a class="navbar-brand" href="#">PLANTASTICK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sklep </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">O nas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kontakt</a>
+                    </li>
+
+                </ul>
+                <span class="navbar-text">
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
+
+        </span>
+            </div>
+        </nav>
+
+
+    {% endif %}
+
+    <br><br><br>
+    <div class="container mt-6 ">
+        {% if cart.items.count > 0 %}
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    {{ form_start(form) }}
+                    <div class="card">
+                        <div class="card-header bg-light text-secondary d-flex">
+                            <h5>Koszyk</h5>
+                            <div class="ml-auto">
+                                {{ form_widget(form.save, {'attr': {'class': 'btn btn-outline-secondary'}}) }}
+                                {{ form_widget(form.clear, {'attr': {'class': 'btn btn-outline-secondary'}}) }}
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for item in form.items %}
+                                <li class="list-group-item d-flex">
+                                    <div class="flex-fill mr-2">
+                                        <img src="https://via.placeholder.com/200x150" width="64" alt="Product image">
+                                    </div>
+                                    <div class="flex-fill mr-2">
+                                        <h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>
+{#                                            <small>{{ item.vars.data.product.about[:50] }}...</small>#}
+                                        <div class="form-inline mt-2">
+                                            <div class="form-group mb-0 mr-2">
+                                                {{ form_widget(item.quantity, {
+                                                    'attr': {
+                                                        'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')
+                                                    }
+                                                }) }}
+                                                <div class="invalid-feedback">
+                                                    {{ form_errors(item.quantity) }}
+                                                </div>
+                                            </div>
+                                            {{ form_widget(item.remove, {'attr': {'class': 'btn btn-dark btn-sm'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="flex-fill mr-2 text-right">
+{#                                            <b>{{ item.vars.data.product.price }} €</b>#}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+{#                <div class="col-md-8"></div>#}
+                <div class="col-md-4">
+                    <div class="card mt-4 mt-md-0">
+                        <h5 class="card-header bg-light text-secondary">Podsumowanie</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div><b>Total</b></div>
+{#                                    <span><b>{{ cart.total }} €</b></span>#}
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-outline-secondary w-100">Zatwierdź</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        {% else %}
+            <div class="alert alert-secondary">
+                Koszyk jest pusty. Przejdź do <a href="{{ path('product_index') }}">sklepu</a>.
+            </div>
+        {% endif %}
+    </div>
+    <footer id="footer">
+        <div class="sep"> <br></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm  col-3 m-3 ">
+                    <h3>INFO</h3>
+                    <p>bla</p>
+                    <p>bla</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h3>KONTAKT</h3>
+                    <p>Skąd</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h2>COŚ TAM </h2>
+                    <p>Regulamin</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+

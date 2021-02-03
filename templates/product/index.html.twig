@@ -1,39 +1,113 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+ {% block stylesheets %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+ {% endblock %}
+ {% block body %}
+{% if app.user %}
 
-{% block body %}
-    <h1>Product index</h1>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#">PLANTASTICK</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sklep </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">O nas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Kontakt</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item" >
+                        <a class="nav-link" href="{{ path('easyadmin') }}"> Admin panel</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <span class="navbar-text">
+             Cześć {{ app.user.username }}! </span>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>ImageSource</th>
-                <th>About</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
+
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+
+
+        </div>
+    </nav>
+
+{% else %}
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#">PLANTASTICK</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sklep </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">O nas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kontakt</a>
+                </li>
+
+            </ul>
+            <span class="navbar-text">
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
+
+        </span>
+        </div>
+    </nav>
+
+
+{% endif %}
+
+
+   <br><br><br>
+
+
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.imageSource }}</td>
-                <td>{{ product.about }}</td>
-                <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
+{#                <td>{{ product.price }}</td>#}
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('product_new') }}">Create new</a>
+
+
+
+    <footer id="footer">
+        <div class="sep"> <br></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm  col-3 m-3 ">
+                    <h3>INFO</h3>
+                    <p>bla</p>
+                    <p>bla</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h3>KONTAKT</h3>
+                    <p>Skąd</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h2>COŚ TAM </h2>
+                    <p>Regulamin</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}
