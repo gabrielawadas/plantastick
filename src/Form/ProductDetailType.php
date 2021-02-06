@@ -1,34 +1,29 @@
 <?php
-/**
- * CartItemType.
- */
+
 namespace App\Form;
 
-use App\Entity\OrderItem;
+use App\Entity\ProductDetail;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class CartItemType
- * @package App\Form
- */
-class CartItemType extends AbstractType
+class ProductDetailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantity')
-            ->add ('colour')
-            ->add('remove', SubmitType::class)
+            ->add('ImageSource')
+            ->add('name')
+            ->add('colour')
+            ->add('height')
+            ->add('price')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => OrderItem::class,
+            'data_class' => ProductDetail::class,
         ]);
     }
 }

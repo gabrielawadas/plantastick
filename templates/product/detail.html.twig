@@ -8,14 +8,14 @@
 {% if app.user %}
 
     <nav class="navbar navbar-expand-lg navbar-custom m-0">
-        <a class="navbar-brand" href="#">PLANTASTICK</a>
+        <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Sklep</a></button>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}"> Sklep</a></button>
 
                 </li>
                 <li class="nav-item">
@@ -47,14 +47,14 @@
 
 {% else %}
     <nav class="navbar navbar-expand-lg navbar-custom ">
-        <a class="navbar-brand" href="#">PLANTASTICK</a>
+        <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sklep </a>
+                    <a href="{{ path('product_index') }}"> Sklep</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">O nas</a>
@@ -99,13 +99,15 @@
             </div>
             <div class="column-xs-12 column-md-5">
                 <div class="col-md-8">
-                    <h1 class="mt-4 mt-md-0">{{ product.name }}</h1>
+                    <h1 class="mt-4 mt-md-0">{{ product.name | upper }}</h1>
 
                     <hr>
                     <b>Description: </b>{{ product.about }}
+
                     {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light '}}) }}
                     <div class="form-group">
-                        {{ form_row(product.price) }}
+                        {{ form_row(form.colour) }}
+
                         {{ form_label(form.quantity) }}
                         {{ form_widget(form.quantity, {
                             'attr': {

@@ -8,43 +8,47 @@
  {% block body %}
 {% if app.user %}
 
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <a class="navbar-brand" href="#">PLANTASTICK</a>
+    <nav class="navbar navbar-expand-lg navbar-custom m-0">
+        <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sklep </a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}"> Sklep</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">O nas</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Kontakt</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item" >
-                        <a class="nav-link" href="{{ path('easyadmin') }}"> Admin panel</a>
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('easyadmin') }}">Admin panel</a></button>
+
                     </li>
                 {% endif %}
             </ul>
             <span class="navbar-text">
              Cześć {{ app.user.username }}! </span>
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}"> Koszyk</a></button>
 
             <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
 
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
 
 
         </div>
     </nav>
 
 {% else %}
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <a class="navbar-brand" href="#">PLANTASTICK</a>
+    <nav class="navbar navbar-expand-lg navbar-custom ">
+        <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -73,22 +77,34 @@
 
 {% endif %}
 
-
    <br><br><br>
 
+{#     <div class="container">#}
+{#         <div class="row ">#}
+{#             {% for product in products %}#}
+{#             <div class="col-4 p-3">#}
 
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-{#                <td>{{ product.price }}</td>#}
-            </tr>
-        {% endfor %}
+{#                 <button id="shopbtn" class="btn btn-outline-secondary ">  <a href="{{ path('product_detail', {'id': product.id}) }}">show</a><img id="shopimage" src="{{ asset('/css/images/'~product.GetImageSource) }}"></button>#}
+{#             </div>#}
+{#             {% endfor %}#}
+
+{#         </div>#}
+{#     </div>#}
+
+     <div class="container">
+         <div class="row">
+             {% for product in products %}
+             <div class="col-4 p-3">
+                 <img id="shopimage" src="{{ asset('/css/images/'~product.GetImageSource) }}">
+                 <button id="button" class="btn btn-white"><a href="{{ path('product_detail', {'id': product.id}) }}">{{ product.name | upper }}</a></button>
+             </div>
+            {% endfor %}
+         </div>
+
+     </div>
 
 
-
-
-    <footer id="footer">
+    <footer >
         <div class="sep"> <br></div>
         <div class="container">
             <div class="row">

@@ -32,7 +32,6 @@ class Product
     private $imageSource;
 
 
-
     /**
      * @ORM\ManyToMany(targetEntity=Colour::class, inversedBy="products")
      */
@@ -54,6 +53,21 @@ class Product
     private $about;
 
     /**
+     * @ORM\OneToMany(targetEntity=ProductDetail::class, mappedBy="name", orphanRemoval=true)
+     */
+    private $productDetails;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="height", orphanRemoval=true)
+     */
+    private $orderItems;
+
+
+
+
+
+
+    /**
      * Product constructor.
      */
     public function __construct()
@@ -61,6 +75,11 @@ class Product
         $this->price = new ArrayCollection();
         $this->colour = new ArrayCollection();
         $this->height = new ArrayCollection();
+        $this->productDetails = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
+
+
+
     }
 
 
@@ -196,6 +215,10 @@ class Product
         return $this->price;
     }
 
+    /**
+     * @param Price $price
+     * @return $this
+     */
     public function addPrice(Price $price): self
     {
         if (!$this->price->contains($price)) {
@@ -205,6 +228,10 @@ class Product
         return $this;
     }
 
+    /**
+     * @param Price $price
+     * @return $this
+     */
     public function removePrice(Price $price): self
     {
         $this->price->removeElement($price);
@@ -230,4 +257,68 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection|ProductDetail[]
+     */
+    public function getProductDetails(): Collection
+    {
+        return $this->productDetails;
+    }
+
+    public function addProductDetail(ProductDetail $productDetail): self
+    {
+        if (!$this->productDetails->contains($productDetail)) {
+            $this->productDetails[] = $productDetail;
+            $productDetail->setName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductDetail(ProductDetail $productDetail): self
+    {
+        if ($this->productDetails->removeElement($productDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($productDetail->getName() === $this) {
+                $productDetail->setName(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->setHeight($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->removeElement($orderItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getHeight() === $this) {
+                $orderItem->setHeight(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }

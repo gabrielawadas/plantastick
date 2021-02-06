@@ -16,14 +16,14 @@
     {% if app.user %}
 
         <nav class="navbar navbar-expand-lg navbar-custom m-0">
-            <a class="navbar-brand" href="#">PLANTASTICK</a>
+            <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Sklep</a></button>
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}"> Sklep</a></button>
 
                     </li>
                     <li class="nav-item">
@@ -55,14 +55,14 @@
 
     {% else %}
         <nav class="navbar navbar-expand-lg navbar-custom ">
-            <a class="navbar-brand" href="#">PLANTASTICK</a>
+            <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sklep </a>
+                        <a href="{{ path('product_index') }}"> Sklep</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">O nas</a>
@@ -106,7 +106,10 @@
                                     </div>
                                     <div class="flex-fill mr-2">
                                         <h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>
-{#                                            <small>{{ item.vars.data.product.about[:50] }}...</small>#}
+                                        <h5 class="mt-0 mb-0">{{ item.vars.data.product.colour }}</h5>
+                                        <h5 class="mt-0 mb-0">{{ item.vars.data.product.height }}</h5>
+
+                                        {#                                            <small>{{ item.vars.data.product.about[:50] }}...</small>#}
                                         <div class="form-inline mt-2">
                                             <div class="form-group mb-0 mr-2">
                                                 {{ form_widget(item.quantity, {

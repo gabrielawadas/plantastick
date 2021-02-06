@@ -32,11 +32,25 @@ class Colour
     private $products;
 
     /**
+     * @ORM\OneToMany(targetEntity=ProductDetail::class, mappedBy="colour", orphanRemoval=true)
+     */
+    private $productDetails;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="colour", orphanRemoval=true)
+     */
+    private $orderItems;
+
+
+
+    /**
      * Colour constructor.
      */
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->productDetails = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     /**
@@ -112,4 +126,66 @@ class Colour
         // to show the id of the Category in the select
         // return $this->id;
     }
+
+    /**
+     * @return Collection|ProductDetail[]
+     */
+    public function getProductDetails(): Collection
+    {
+        return $this->productDetails;
+    }
+
+    public function addProductDetail(ProductDetail $productDetail): self
+    {
+        if (!$this->productDetails->contains($productDetail)) {
+            $this->productDetails[] = $productDetail;
+            $productDetail->setColour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductDetail(ProductDetail $productDetail): self
+    {
+        if ($this->productDetails->removeElement($productDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($productDetail->getColour() === $this) {
+                $productDetail->setColour(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->setColour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->removeElement($orderItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getColour() === $this) {
+                $orderItem->setColour(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

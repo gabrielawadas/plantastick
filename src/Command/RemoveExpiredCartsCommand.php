@@ -11,6 +11,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+
+/**
+ * Class RemoveExpiredCartsCommand
+ */
 class RemoveExpiredCartsCommand extends Command
 {
     /**
@@ -87,7 +91,7 @@ class RemoveExpiredCartsCommand extends Command
         if ($expiredCartsCount) {
             $io->success("$expiredCartsCount cart(s) have been deleted.");
         } else {
-            $io->info('No expired carts.');
+            $io->text('No expired carts.');
         }
 
         return Command::SUCCESS;

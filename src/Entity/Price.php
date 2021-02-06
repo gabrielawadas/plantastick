@@ -31,9 +31,17 @@ class Price
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductDetail::class, mappedBy="price", orphanRemoval=true)
+     */
+    private $productDetails;
+
+
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->productDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,4 +98,36 @@ class Price
         // to show the id of the Category in the select
         // return $this->id;
     }
+
+    /**
+     * @return Collection|ProductDetail[]
+     */
+    public function getProductDetails(): Collection
+    {
+        return $this->productDetails;
+    }
+
+    public function addProductDetail(ProductDetail $productDetail): self
+    {
+        if (!$this->productDetails->contains($productDetail)) {
+            $this->productDetails[] = $productDetail;
+            $productDetail->setPrice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductDetail(ProductDetail $productDetail): self
+    {
+        if ($this->productDetails->removeElement($productDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($productDetail->getPrice() === $this) {
+                $productDetail->setPrice(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
