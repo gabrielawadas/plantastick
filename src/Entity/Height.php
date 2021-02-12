@@ -32,19 +32,11 @@ class Height
     private $products;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProductDetail::class, mappedBy="height", orphanRemoval=true)
-     */
-    private $productDetails;
-
-
-
-    /**
      * Height constructor.
      */
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->productDetails = new ArrayCollection();
     }
 
     /**
@@ -75,42 +67,6 @@ class Height
     }
 
     /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param Product $product
-     * @return $this
-     */
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addHeight($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Product $product
-     * @return $this
-     */
-    public function removeProduct(Product $product): self
-    {
-        if ($this -> products -> removeElement ( $product )) {
-            $product -> removeHeight ( $this );
-        }
-
-        return $this;
-    }
-
-
-    /**
      * Generates the magic method.
      */
     public function __toString()
@@ -122,34 +78,33 @@ class Height
     }
 
     /**
-     * @return Collection|ProductDetail[]
+     * @return Collection|Product[]
      */
-    public function getProductDetails(): Collection
+    public function getProducts(): Collection
     {
-        return $this->productDetails;
+        return $this->products;
     }
 
-    public function addProductDetail(ProductDetail $productDetail): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->productDetails->contains($productDetail)) {
-            $this->productDetails[] = $productDetail;
-            $productDetail->setHeight($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addHeight($this);
         }
 
         return $this;
     }
 
-    public function removeProductDetail(ProductDetail $productDetail): self
+    public function removeProduct(Product $product): self
     {
-        if ($this->productDetails->removeElement($productDetail)) {
-            // set the owning side to null (unless already changed)
-            if ($productDetail->getHeight() === $this) {
-                $productDetail->setHeight(null);
-            }
+        if ($this->products->removeElement($product)) {
+            $product->removeHeight($this);
         }
 
         return $this;
     }
+
+
 
 
 

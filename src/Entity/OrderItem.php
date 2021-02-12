@@ -19,9 +19,6 @@ class OrderItem
      * @ORM\Column(type="integer")
      */
     private $id;
-
-
-
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="items")
      * @ORM\JoinColumn(nullable=false)
@@ -35,16 +32,16 @@ class OrderItem
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItem")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Product;
+    private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Colour::class, inversedBy="orderItems")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $colour;
+    private $productColour;
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
@@ -52,7 +49,11 @@ class OrderItem
      */
     private $height;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $price;
 
 
     /**
@@ -123,38 +124,31 @@ class OrderItem
         return $this;
     }
 
-    /**
-     * @return Product|null
-     */
     public function getProduct(): ?Product
     {
-        return $this->Product;
+        return $this->product;
     }
 
-    /**
-     * @param Product|null $Product
-     * @return $this
-     */
-    public function setProduct(?Product $Product): self
+    public function setProduct(?Product $product): self
     {
-        $this->Product = $Product;
+        $this->product = $product;
 
         return $this;
     }
 
     /**
-     * @return Colour|null
+     * @return Product|string
      */
-    public function getColour(): ?Colour
+    public function getProductColour(): ?Product
     {
         return $this->colour;
     }
 
     /**
-     * @param Colour|null $colour
+     * @param Product|null $colour
      * @return $this
      */
-    public function setColour(?Colour $colour): self
+    public function setProductColour(?Product $colour): self
     {
         $this->colour = $colour;
 
@@ -173,9 +167,18 @@ class OrderItem
         return $this;
     }
 
+    public function getPrice(): ?Product
+    {
+        return $this->price;
+    }
 
+    public function setPrice(?Product $price): self
+    {
+        $this->price = $price;
 
-
-
-
+        return $this;
+    }
+    public function __toString() {
+        return "some string representation of your object";
+}
 }

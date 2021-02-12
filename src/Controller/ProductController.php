@@ -4,6 +4,7 @@
  */
 namespace App\Controller;
 
+use App\Entity\Colour;
 use App\Entity\Product;
 use App\Form\AddToCartType;
 use App\Form\Product3Type;
@@ -68,7 +69,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_detail", methods={"GET", "POST"})
      */
-    public function show(Product $product, Request $request, CartManager $cartManager): Response
+    public function show(Product $product, Request $request, CartManager $cartManager, Colour $colour): Response
     {
         $form = $this->createForm(AddToCartType::class);
         $form->handleRequest($request);
@@ -87,7 +88,9 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('product_detail', ['id' => $product->getId()]);
         }
         return $this->render('product/detail.html.twig', [
+            'colour' => $colour,
             'product' => $product,
+            'id' => $product->getId (),
             'form' => $form->createView()
         ]);
     }

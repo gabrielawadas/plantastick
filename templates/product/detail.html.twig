@@ -97,17 +97,15 @@
 
                 </div>
             </div>
+
+
             <div class="column-xs-12 column-md-5">
                 <div class="col-md-8">
                     <h1 class="mt-4 mt-md-0">{{ product.name | upper }}</h1>
-
-                    <hr>
-                    <b>Description: </b>{{ product.about }}
-
+                   {{ product.about }}
                     {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light '}}) }}
                     <div class="form-group">
                         {{ form_row(form.colour) }}
-
                         {{ form_label(form.quantity) }}
                         {{ form_widget(form.quantity, {
                             'attr': {
@@ -118,8 +116,8 @@
                             {{ form_errors(form.quantity) }}
                         </div>
                     </div>
-                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-outline-secondary w-auto'}}) }}
-                    {{ form_end(form) }}
+{#                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-outline-secondary w-auto'}}) }}#}
+{#                    {{ form_end(form) }}#}
                 </div>
 
             </div>

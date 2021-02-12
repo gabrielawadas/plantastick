@@ -4,12 +4,21 @@
  */
 namespace App\Form;
 
+use App\Entity\Colour;
 use App\Entity\OrderItem;
+use App\Entity\Product;
+use App\Entity\ProductColour;
+use App\Entity\ProductDetail;
+use App\Repository\ProductDetailRepository;
+use App\Repository\ProductRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 /**
  * Class AddToCartType
@@ -23,13 +32,15 @@ class AddToCartType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options )
     {
-        $builder->add('quantity');
-        $builder->add('colour');
-        $builder->add ('height');
-        $builder->add('add', SubmitType::class, [
-            'label' => 'Add to cart'
-        ]);
 
+        $builder->add('quantity');
+
+        $builder->add('colour', EntityType::class, [
+            'class' => Product::class,
+            'choice_value' => function (?Product $product) {
+        return $product ? $product->getProductColour() : '';
+    },
+        ]);
     }
 
     /**

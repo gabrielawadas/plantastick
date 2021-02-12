@@ -1,34 +1,118 @@
-{% extends 'base.html.twig' %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block title %}User{% endblock %}
+    <!-- Bootstrap CSS -->
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-{% block body %}
-    <h1>User</h1>
+    {% endblock %}
+</head>
+    {% block body %}
+    {% if app.user %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
+        <nav class="navbar navbar-expand-lg navbar-custom m-0">
+            <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}">Sklep</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item" >
+                            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('easyadmin') }}">Admin panel</a></button>
+
+                        </li>
+                    {% endif %}
+                </ul>
+                <span class="navbar-text">
+             Cześć {{ app.user.username }}! </span>
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
+
+                <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+
+
+            </div>
+        </nav>
+
+    {% else %}
+        <nav class="navbar navbar-expand-lg navbar-custom ">
+            <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}">Sklep</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
+                    </li>
+
+                </ul>
+                <span class="navbar-text">
+            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
+            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
+
+        </span>
+            </div>
+        </nav>
+
+
+    {% endif %}
+
+            <div >
                 <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    <footer>
+        <div class="sep"> <br></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm  col-3 m-3 ">
+                    <h3>INFO</h3>
+                    <p>bla</p>
+                    <p>bla</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h3>KONTAKT</h3>
+                    <p>Skąd</p>
+                    <p>bla</p>
+                </div>
+                <div class="col-sm  col-3 m-3">
+                    <h2>COŚ TAM </h2>
+                    <p>Regulamin</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

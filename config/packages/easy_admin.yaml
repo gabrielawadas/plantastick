@@ -2,8 +2,5 @@ easy_admin:
   entities:
     - App\Entity\Product
     - App\Entity\User
-    - App\Entity\Price
-    - App\Entity\Colour
-    - App\Entity\Height
     - App\Entity\Order
-    - App\Entity\ProductDetail
+    - App\Entity\ProductColour
