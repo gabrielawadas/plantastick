@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Repository\OrderRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,40 +10,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-
-/**
- * Class RemoveExpiredCartsCommand
- */
 class RemoveExpiredCartsCommand extends Command
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var OrderRepository
-     */
-    private $orderRepository;
-
     protected static $defaultName = 'app:remove-expired-carts';
 
-    /**
-     * RemoveExpiredCartsCommand constructor.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param OrderRepository $orderRepository
-     */
-    public function __construct(EntityManagerInterface $entityManager, OrderRepository $orderRepository)
-    {
-        parent::__construct();
-        $this->entityManager = $entityManager;
-        $this->orderRepository = $orderRepository;
-    }
-
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
         $this
@@ -91,10 +60,9 @@ class RemoveExpiredCartsCommand extends Command
         if ($expiredCartsCount) {
             $io->success("$expiredCartsCount cart(s) have been deleted.");
         } else {
-            $io->text('No expired carts.');
+            $io->info('No expired carts.');
         }
 
         return Command::SUCCESS;
     }
-
 }

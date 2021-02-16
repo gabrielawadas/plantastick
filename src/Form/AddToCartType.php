@@ -34,12 +34,8 @@ class AddToCartType extends AbstractType
     {
 
         $builder->add('quantity');
-
-        $builder->add('colour', EntityType::class, [
-            'class' => Product::class,
-            'choice_value' => function (?Product $product) {
-        return $product ? $product->getProductColour() : '';
-    },
+        $builder->add('add', SubmitType::class, [
+            'label' => 'Add to cart'
         ]);
     }
 

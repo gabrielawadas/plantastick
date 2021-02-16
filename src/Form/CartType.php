@@ -1,7 +1,5 @@
 <?php
-/**
- * CartType.
- */
+
 namespace App\Form;
 
 use App\Entity\Order;
@@ -13,10 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class CartType
- * @package App\Form
- */
 class CartType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -30,7 +24,6 @@ class CartType extends AbstractType
 
         $builder->addEventSubscriber(new RemoveCartItemListener());
         $builder->addEventSubscriber(new ClearCartListener());
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -5,6 +5,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,23 +39,8 @@ class OrderItem
      */
     private $product;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $productColour;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $height;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $price;
 
 
     /**
@@ -136,49 +123,10 @@ class OrderItem
         return $this;
     }
 
-    /**
-     * @return Product|string
-     */
-    public function getProductColour(): ?Product
-    {
-        return $this->colour;
-    }
 
-    /**
-     * @param Product|null $colour
-     * @return $this
-     */
-    public function setProductColour(?Product $colour): self
-    {
-        $this->colour = $colour;
-
-        return $this;
-    }
-
-    public function getHeight(): ?Product
-    {
-        return $this->height;
-    }
-
-    public function setHeight(?Product $height): self
-    {
-        $this->height = $height;
-
-        return $this;
-    }
-
-    public function getPrice(): ?Product
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?Product $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
     public function __toString() {
         return "some string representation of your object";
 }
+
+
 }

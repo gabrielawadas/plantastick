@@ -3,19 +3,33 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 {% endblock %}
-{% if app.user %}
 
-    <nav class="navbar navbar-expand-lg navbar-custom m-0">
+{% if app.user %}
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar navbar-light bg-faded ">
+
+        <!-- Navbar brand -->
         <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon my-toggler" ></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}"> Sklep</a></button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item" >
+                    <button class="  btn btn-outline-secondary text-right ml-2" > <a href="{{ path('product_index') }}">Sklep</a></button>
 
                 </li>
                 <li class="nav-item">
@@ -33,48 +47,84 @@
                     </li>
                 {% endif %}
             </ul>
-            <span class="navbar-text">
-             Cześć {{ app.user.username }}! </span>
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
-
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
-
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
 
 
+            </ul>
+            <!-- Links -->
+            <ul class="navbar-nav " >
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+                </li>
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_logout') }}">Panel użykownika</a></button>
+                </li>
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_logout') }}">Wyloguj</a></button>
+                </li>
+            </ul>
         </div>
+        <!-- Collapsible content -->
+
     </nav>
+    <!--/.Navbar-->
 
 {% else %}
-    <nav class="navbar navbar-expand-lg navbar-custom ">
+
+    <nav class="navbar navbar-expand-lg navbar navbar-light bg-faded ">
+
+        <!-- Navbar brand -->
         <img src="{{asset('/css/images/logo1.png') }}" style="height: 50px">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon my-toggler" ></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="{{ path('product_index') }}"> Sklep</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('product_index') }}">Sklep</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">O nas</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">O nas</a></button>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Kontakt</a>
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Kontakt</a></button>
+
                 </li>
 
             </ul>
-            <span class="navbar-text">
-            <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
-            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_login') }}">Logowanie</a></button>
-            <button class=" navbar-right btn btn-outline-secondary text-right"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
 
-        </span>
+
+            </ul>
+            <!-- Links -->
+            <ul class="navbar-nav " >
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('cart') }}">Koszyk</a></button>
+                </li>
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2"> <a href="{{ path('app_login') }}">Logowanie</a></button>
+                </li>
+                <li class="nav-item" >
+                    <button class=" navbar-right btn btn-outline-secondary text-right ml-2 mr-0"> <a href="{{ path('app_register') }}">Rejestracja</a></button>
+                </li>
+            </ul>
+
+
         </div>
+        <!-- Collapsible content -->
+
     </nav>
-
-
 {% endif %}
+
 <main>
     <div class="container pt-5">
         <div class="grid second-nav">
@@ -101,11 +151,10 @@
 
             <div class="column-xs-12 column-md-5">
                 <div class="col-md-8">
-                    <h1 class="mt-4 mt-md-0">{{ product.name | upper }}</h1>
-                   {{ product.about }}
-                    {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light '}}) }}
+                    <h1 class="mt-4 mt-md-0">{{ product.name }}</h1>
+
+                    {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
                     <div class="form-group">
-                        {{ form_row(form.colour) }}
                         {{ form_label(form.quantity) }}
                         {{ form_widget(form.quantity, {
                             'attr': {
@@ -116,8 +165,8 @@
                             {{ form_errors(form.quantity) }}
                         </div>
                     </div>
-{#                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-outline-secondary w-auto'}}) }}#}
-{#                    {{ form_end(form) }}#}
+                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-outline-secondary w-auto'}}) }}
+                    {{ form_end(form) }}
                 </div>
 
             </div>

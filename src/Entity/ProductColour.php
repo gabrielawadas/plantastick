@@ -3,6 +3,8 @@
  * ProductColour Entity.
  */
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,14 +29,21 @@ class ProductColour
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Colour", inversedBy="productColour")
+     * @ORM\OneToMany(targetEntity="Colour", mappedBy="productColour")
      * @ORM\JoinColumn(nullable=false)
      */
     private $colour;
+
+
     /**
-     * @var string
+     * @ORM\ManyToMany(targetEntity=OrderItem::class, mappedBy="productColour")
      */
-    private $name;
+    private $orderItems;
+
+    public function __construct()
+    {
+        $this->orderItems = new ArrayCollection();
+    }
 
     /**
      * @param mixed $name
@@ -101,6 +110,33 @@ class ProductColour
         return $this->colour;
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->addProductColour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->removeElement($orderItem)) {
+            $orderItem->removeProductColour($this);
+        }
+
+        return $this;
     }
 
 }

@@ -88,9 +88,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('product_detail', ['id' => $product->getId()]);
         }
         return $this->render('product/detail.html.twig', [
-            'colour' => $colour,
             'product' => $product,
-            'id' => $product->getId (),
             'form' => $form->createView()
         ]);
     }

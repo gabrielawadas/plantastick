@@ -39,13 +39,13 @@ class Product
     private $about;
 
 
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Height::class, inversedBy="products")
-     * @ORM\JoinTable(name="product_height")
-     */
-    private $height;
+//
+//
+//    /**
+//     * @ORM\ManyToMany(targetEntity=Height::class, inversedBy="products")
+//     * @ORM\JoinTable(name="product_height")
+//     */
+//    private $height;
 
 
 
@@ -56,10 +56,10 @@ class Product
 
 
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Price::class, inversedBy="products")
-     */
-    private $price;
+//    /**
+//     * @ORM\ManyToMany(targetEntity=Price::class, inversedBy="products")
+//     */
+//    private $price;
 
     /**
      * @ORM\ManyToOne(targetEntity="ProductColour", inversedBy="product")
@@ -74,10 +74,10 @@ class Product
     public function __construct()
     {
 
-        $this->height = new ArrayCollection();
+//        $this->height = new ArrayCollection();
         $this->orderItem = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
-        $this->price = new ArrayCollection();
+//        $this->price = new ArrayCollection();
 
     }
 
@@ -151,31 +151,6 @@ class Product
 
 
 
-    /**
-     * @return Collection|Height[]
-     */
-    public function getHeight(): Collection
-    {
-        return $this->height;
-    }
-
-    public function addHeight(Height $height): self
-    {
-        if (!$this->height->contains($height)) {
-            $this->height[] = $height;
-        }
-
-        return $this;
-    }
-
-    public function removeHeight(Height $height): self
-    {
-        $this->height->removeElement($height);
-
-        return $this;
-    }
-
-
 
     /**
      * @return Collection|OrderItem[]
@@ -215,29 +190,29 @@ class Product
         return $this->orderItems;
     }
 
-    /**
-     * @return Collection|Price[]
-     */
-    public function getPrice(): Collection
-    {
-        return $this->price;
-    }
-
-    public function addPrice(Price $price): self
-    {
-        if (!$this->price->contains($price)) {
-            $this->price[] = $price;
-        }
-
-        return $this;
-    }
-
-    public function removePrice(Price $price): self
-    {
-        $this->price->removeElement($price);
-
-        return $this;
-    }
+//    /**
+//     * @return Collection|Price[]
+//     */
+//    public function getPrice(): Collection
+//    {
+//        return $this->price;
+//    }
+//
+//    public function addPrice(Price $price): self
+//    {
+//        if (!$this->price->contains($price)) {
+//            $this->price[] = $price;
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removePrice(Price $price): self
+//    {
+//        $this->price->removeElement($price);
+//
+//        return $this;
+//    }
     /**
      * @return mixed
      */
